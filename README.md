@@ -1,2 +1,1 @@
-# second-assginment
-Main JavaScript Project - Rock Paper Scissors Game
+https://lidoricom.github.io/second-assignment/
