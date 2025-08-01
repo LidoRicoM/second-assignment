@@ -13,24 +13,24 @@ function getComputerSelection() {
 }
 
 // Function that prompts user selection
-function getPlayerSelection(promptText = "Enter Rock, Paper, or Scissors:") {
+function getPlayerSelection(promptText = "No time to waste, choose Rock, Paper, or Scissors") {
   const playerSelection = prompt(promptText);
   if (playerSelection === null || playerSelection.trim() === "") {
-    return getPlayerSelection("Value cannot be empty. Enter Rock, Paper, or Scissors:")
+    return getPlayerSelection("There is no escape! Your selection cannot be empty! Enter Rock, Paper, or Scissors or we all die!")
   } else {
     const validatedSelection = playerSelection.trim().toLowerCase()
 
     // Return if valid value or re-prompt
     if (choices.includes(validatedSelection)) {
       return validatedSelection
-    } else return getPlayerSelection("Invalid value. Enter only Rock, Paper, or Scissors:")
+    } else return getPlayerSelection("This is not the way to win! You need to choose between Rock, Paper or Scissors!")
   }
 }
 
 // Step 2: Function that plays one round
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
-    return { result: "tie", message: `It's a tie! You both chose ${playerSelection}` };
+    return { result: "tie", message: `That was close. It's a tie! You both chose ${playerSelection}. Don't give up!` };
   }
 
   if (
@@ -40,7 +40,7 @@ function playRound(playerSelection, computerSelection) {
   ) {
     return { result: "win", message: `You Win! ${playerSelection} beats ${computerSelection}` };
   } else {
-    return { result: "lose", message: `You Lose! ${computerSelection} beats ${playerSelection}` };
+    return { result: "lose", message: `Oh No - You Lose! ${computerSelection} beats ${playerSelection}` };
   }
 }
 
@@ -50,7 +50,7 @@ function game() {
   let computerScore = 0;
 
   for (let i = 0; i < 5; i++) {
-    let computerSelection = computerPlay()
+    let computerSelection = getComputerSelection()
     const playerSelection = getPlayerSelection()
 
     const roundResult = playRound(playerSelection, computerSelection);
@@ -63,15 +63,26 @@ function game() {
     }
   }
 
-  console.log(`Final Score - Player: ${playerScore}, Computer: ${computerScore}`);
+  console.log(`Final Score - Hero: ${playerScore}, Evil AI: ${computerScore}`);
   if (playerScore > computerScore) {
-    console.log("You win the game!");
+    console.log("You win the game and save the world!");
   } else if (playerScore < computerScore) {
-    console.log("You lose the game!");
+    console.log("You lost the game! Now the AI is unstoppable!");
   } else {
-    console.log("The game is a tie!");
+    console.log("The game is a tie! Hurry, refresh the page for another chance to defeat the AI!");
   }
 }
 
-// Start the game
-game();
+function startGame() {
+  console.log("Oh no an evil AI is trying to take control over the world! Only you and your skills in Rock Paper Scissors can save it! You need to win within 5 rounds or we are all DOOMED!")
+
+  game()
+
+  const retry = confirm("Do you want to save the world again? Click OK or Cancel.");
+  if (retry) {
+    console.clear()
+    startGame()
+  }
+}
+
+startGame()
