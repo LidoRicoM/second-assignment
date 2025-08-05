@@ -15,7 +15,12 @@ function getComputerSelection() {
 // Function that prompts user selection
 function getPlayerSelection(promptText = "No time to waste, choose Rock, Paper, or Scissors") {
   const playerSelection = prompt(promptText);
-  if (playerSelection === null || playerSelection.trim() === "") {
+
+  if (playerSelection === null) {
+    return null
+  }
+
+  if (playerSelection.trim() === "") {
     return getPlayerSelection("There is no escape! Your selection cannot be empty! Enter Rock, Paper, or Scissors or we all die!")
   } else {
     const validatedSelection = playerSelection.trim().toLowerCase()
@@ -53,6 +58,12 @@ function game() {
     let computerSelection = getComputerSelection()
     const playerSelection = getPlayerSelection()
 
+
+    if (playerSelection === null) {
+      console.log("Exiting the game...");
+      return;
+    }
+
     const roundResult = playRound(playerSelection, computerSelection);
     console.log(roundResult.message);
 
@@ -74,6 +85,12 @@ function game() {
 }
 
 function startGame() {
+  window.alert(`
+    Open Developer Console to see extra logs and hints:
+    - Windows/Linux: F12 or Ctrl+Shift+I
+    - Mac: Cmd+Option+I
+  `)
+
   console.log("Oh no an evil AI is trying to take control over the world! Only you and your skills in Rock Paper Scissors can save it! You need to win within 5 rounds or we are all DOOMED!")
 
   game()
